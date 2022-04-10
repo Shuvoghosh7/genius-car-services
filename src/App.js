@@ -1,10 +1,14 @@
 import logo from './logo.svg';
 import './App.css';
+import { Route, Routes } from 'react-router-dom';
+import Footer from './Pages/Shared/Footer/Footer';
 
 function App() {
   return (
     <div className="App">
-      <h1>start a react project</h1>
+      <Routes>
+        <Route path='/footer' element={<Footer/>}/>
+      </Routes>
     </div>
   );
 }
