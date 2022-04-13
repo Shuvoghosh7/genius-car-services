@@ -2,8 +2,9 @@
 import React, { useRef } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import auth from '../../../Firebase.init';
+import SocialLogin from '../SocialLogin/SocialLogin';
 const Login = () => {
     const [
         signInWithEmailAndPassword,
@@ -14,8 +15,10 @@ const Login = () => {
     const navigate = useNavigate()
     const emailRef = useRef('')
     const passwordRef = useRef('')
+    const location =useLocation()
+    let from=location.state?.from?.pathname || "/"
     if(user){
-        navigate('/')
+        navigate(from,{replase:true})
     }
     const handelSubmit = event => {
         event.preventDefault()
@@ -49,7 +52,7 @@ const Login = () => {
             </Form>
             
             <p>New to Genius Car? <Link to='/register' className='text-danger text-decoration-none'>Please Reagister</Link></p>
-            
+            <SocialLogin/>
         </div>
     );
 };

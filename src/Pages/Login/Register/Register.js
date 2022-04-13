@@ -3,6 +3,7 @@ import { Button, Form } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import auth from '../../../Firebase.init';
+import SocialLogin from '../SocialLogin/SocialLogin';
 
 const Register = () => {
     const [
@@ -58,7 +59,7 @@ const Register = () => {
             </Form>
 
             <p>Alrady have an Account? <Link to='/login' className='text-danger text-decoration-none'>Please Login</Link></p>
-
+        <SocialLogin/>
         </div>
     );
 };
