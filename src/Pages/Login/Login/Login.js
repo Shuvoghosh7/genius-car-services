@@ -1,8 +1,7 @@
 
 import React, { useRef } from 'react';
 import { Button, Form } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
-
+import { Link, useNavigate } from 'react-router-dom';
 const Login = () => {
     const navigate = useNavigate()
     const emailRef = useRef('')
@@ -17,7 +16,7 @@ const Login = () => {
     }
 
     return (
-        <div className='container w-50 mx-auto'>
+        <div className='container w-25 mx-auto'>
             <h1 className='text-primary text-center'>Plrase Login</h1>
             <Form onSubmit={handelSubmit}>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -40,7 +39,7 @@ const Login = () => {
                 </Button>
             </Form>
             
-            <p>New to Genius Car? <span className='text-danger pe-auto' onClick={(e) => navigate('/register')}>Please Reagister</span></p>
+            <p>New to Genius Car? <Link to='/register' className='text-danger text-decoration-none'>Please Reagister</Link></p>
             
         </div>
     );
