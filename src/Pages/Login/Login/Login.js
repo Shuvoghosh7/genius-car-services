@@ -1,7 +1,7 @@
 
 import React, { useRef } from 'react';
 import { Button, Form } from 'react-bootstrap';
-import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { useSendPasswordResetEmail, useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import auth from '../../../Firebase.init';
 import SocialLogin from '../SocialLogin/SocialLogin';
@@ -20,13 +20,25 @@ const Login = () => {
     if(user){
         navigate(from,{replase:true})
     }
+    let errorElement;
+    if (error) {
+        errorElement=
+            <p className='text-danger'>Error: {error?.message}</p>
+      }
+      const [sendPasswordResetEmail,sending] = useSendPasswordResetEmail(
+        auth
+      );
     const handelSubmit = event => {
         event.preventDefault()
         const email = emailRef.current.value
         const password = passwordRef.current.value
         signInWithEmailAndPassword(email, password)
     }
-
+    const resatePassword= async()=>{
+        const email = emailRef.current.value
+        await sendPasswordResetEmail(email);
+        alert('Sent email');
+    }
     return (
         <div className='container w-25 mx-auto'>
             <h1 className='text-primary text-center'>Plrase Login</h1>
@@ -44,14 +56,16 @@ const Login = () => {
                     <Form.Control ref={passwordRef} type="password" placeholder="Password" required />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                    <Form.Check type="checkbox" label="Check me out" />
+                    <Form.Check type="checkbox" label="Accept Genius Car service term and condition" />
                 </Form.Group>
                 <Button variant="primary" type="submit">
                     Submit
                 </Button>
+                {errorElement}
             </Form>
             
             <p>New to Genius Car? <Link to='/register' className='text-danger text-decoration-none'>Please Reagister</Link></p>
+            <p>Are you Forget password? <Link to='/login' className='text-danger text-decoration-none'><span onClick={resatePassword}>Reset Password</span></Link></p>
             <SocialLogin/>
         </div>
     );
