@@ -6,6 +6,7 @@ import { useSignInWithGithub, useSignInWithGoogle } from 'react-firebase-hooks/a
 import auth from '../../../Firebase.init';
 import { useNavigate } from 'react-router-dom';
 import { Spinner } from 'react-bootstrap';
+import Loading from '../../Shared/Loading/Loading';
 const SocialLogin = () => {
     const navigate =useNavigate()
     const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
@@ -16,9 +17,7 @@ const SocialLogin = () => {
         <p>Error: {error?.message}{error1?.message}</p>
       }
       if (loading || loading1) {
-        return <Spinner animation="border" role="status">
-        <span className="visually-hidden">Loading...</span>
-      </Spinner>;
+        return <Loading/>;
       }
       if(user || user1){
         navigate('/')
