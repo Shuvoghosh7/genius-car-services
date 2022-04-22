@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import auth from '../../../Firebase.init';
 import logo from '../../../images/logo.png'
 const Header = () => {
-    const[user]=useAuthState(auth)
+    const [user] = useAuthState(auth)
     return (
         <Navbar collapseOnSelect expand="lg" bg="primary" variant="dark" sticky='top'>
             <Container>
@@ -17,7 +17,7 @@ const Header = () => {
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="me-auto">
                         <Nav.Link href="#services">Services</Nav.Link>
-                        <Nav.Link href="#expaert">Experts</Nav.Link>
+                        <Nav.Link href="#expaert">Experts</Nav.Link> 
                         <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
                             <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
                             <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
@@ -28,10 +28,17 @@ const Header = () => {
                     </Nav>
                     <Nav>
                         <Nav.Link as={Link} to="about">About</Nav.Link>
-                        {user? <button onClick={()=>signOut (auth)}>Singout</button>
-                        : <Nav.Link eventKey={2} as={Link} to="login">
-                            Login
-                        </Nav.Link>}
+                        {
+                            user && <>
+                              <Nav.Link as={Link} to="/addservice">Add Service</Nav.Link>
+                              <Nav.Link as={Link} to="/manageservice">Manage Service</Nav.Link>
+                            
+                            </>
+                        }
+                        {user ? <button onClick={() => signOut(auth)}>Singout</button>
+                            : <Nav.Link eventKey={2} as={Link} to="login">
+                                Login
+                            </Nav.Link>}
                     </Nav>
                 </Navbar.Collapse>
             </Container>
